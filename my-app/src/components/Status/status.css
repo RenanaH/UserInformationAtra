@@ -1,0 +1,71 @@
+.img_person{
+    /* background: transparent url('img/NoPath - Copy (46).png') 0% 0% no-repeat padding-box; */
+    width: 10vh;
+height: 10vh;
+    background: #F6F6FA ;
+    border-color:red !important;
+border-radius: 50px;
+opacity: 1;
+/* margin:50%; */
+}
+.div_person{
+    text-align: center;
+    align-items: center;
+}
+.i_name{
+border:0;
+text-align: center;
+font: normal normal bold 14px/19px Roboto;
+letter-spacing: 0px;
+opacity: 1;
+}
+.i_position_men{
+    border: 0 !important;
+    text-align: center;
+font: normal normal normal 18px/22px Roboto;
+letter-spacing: 0px;
+/* color: #B8B8C5; */
+color: #B8B8C5;
+text-transform: capitalize;
+opacity: 1;
+
+}
+.i_email{
+   
+    border: 0.5px solid #6F7389;
+border-radius: 10px;
+opacity: 1;
+}
+/* .icon1{
+    background-color: white;
+} */
+.i_icon{
+    /* background: #EEE5FC !important;
+    color: #9DA0AF;
+    border:0px; 
+    background: white 0% 0% no-repeat padding-box;*/
+    color: #6F7389;
+opacity: 1;
+} 
+.div_email{
+    text-align: center !important;
+    font: normal normal  20px/21px Roboto;
+    word-break:break-all;
+    color: #B8B8C5;
+
+}
+
+.i_name_men{
+    border: 0 !important;
+    text-align: center;
+font: normal normal bold 24px/29px Roboto;
+letter-spacing: 0px;
+/* color: #3A405E; */
+opacity: 1;
+color: #121218;
+
+}
+
+@media screen and (max-width: 600px) {
+    
+  }
