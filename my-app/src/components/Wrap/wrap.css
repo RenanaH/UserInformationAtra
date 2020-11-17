@@ -32,7 +32,6 @@
     background: #FFFFFF 0% 0% no-repeat padding-box;
 border-radius: 12px;
 opacity: 1;
-/* width: calc(100% - 57px); */
 margin-left: 10px;
   }
 
@@ -121,5 +120,13 @@ color: darkgrey;
     margin-left: 12px;
 }
 @media screen and (max-width: 600px) {
-  
+  .content,.content2{
+    width: calc(100% - 25px);
+  }
+  .content1,.content2{
+    margin-left: 8px;
+  }
+  .content1{
+    margin-top: 18px;
+  }
 }

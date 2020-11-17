@@ -84,6 +84,12 @@ import { useParams } from "react-router-dom";
 import userService from '../../Services/userService';
 import queryString from 'query-string'
 
+
+import { connect } from 'react-redux';
+import {getUserFromServer} from '../../redux/actions/user.action';
+import X from '../x';
+
+
 const drawerWidth = '15%';
 const useStyles = theme => ({
   // root: {
@@ -314,14 +320,13 @@ class Wrap extends React.Component {
   render() {
 
 
-
+// console.log(this.props.user.email);
     const { classes } = this.props;
     const { theme } = this.props;
     //const history = createBrowserHistory();
     const open = Boolean(this.state.anchorEl)
     return (
       <div className={classes.root}>
-
         {/* <Router> */}
         <CssBaseline />
 
@@ -498,7 +503,10 @@ class Wrap extends React.Component {
             <div className="col-md-9">
 
               <main className="content">
-                <UserInformation cb={this.setName} changePosition={this.setPosition} user1={this.state.user} changeImg={this.setImgUser}/>
+
+                {/* {this.props.user} */}
+               {/* <X></X> */}
+                <UserInformation/>
 
                 {/* /* <Route path="/lastFiles" component={lastFiles} /> */}
                 {/* <div className={classes.toolbar} /> */}
@@ -526,7 +534,7 @@ class Wrap extends React.Component {
                     <main className="content1">
                       {/* <button onClick={this.a}>click</button> */}
 
-                      <Status name={this.state.name} position={this.state.position}  user={this.state.user} changeImg={this.setImgUser} changeUser={this.setUserToStatus}/>
+                      <Status/>
                     </main>
                   </div>
 
@@ -790,32 +798,8 @@ class Wrap extends React.Component {
     var url = window.location;
     console.log(url);
     var userName = (url.pathname.split('/')[1]);
-    console.log(userName);
-
-    //////ok
-   fetch(`https://lobby.leader.codes/api/getUserByUserName/${userName}`,
-          {
-              method: 'GET'
-              // ,body:JSON.stringify(userName)
-          })
-          .then((res) => {
-            console.log("res11111",res)
-              return res.json();
-          })
-          .then((result) => {
-          console.log("res",result)
-            this.setState({ user: result })
-              console.log("userrrrrrr",this.state.user);
-              
-          })
-          // console.log(user);
-  
-  
-    // this.getUser(userName).then((result)=>{
-    //   console.log(result+"resssssssssss")
-    // })
-
-
+    
+   
   }
 
   componentDidUpdate = () => {
@@ -877,5 +861,22 @@ class Wrap extends React.Component {
 }
 
 
-export default withStyles(useStyles)(Wrap)
+export default connect(
+    (state) => {
+        return {
+            user: state.user.user
+        }
+    },
+    (dispatch) => {
+        return {
+           
+        }
+    }
+
+
+)(withStyles(useStyles)(Wrap))
+
+
+
+// export default withStyles(useStyles)(Wrap)
 //export default Wrap;
