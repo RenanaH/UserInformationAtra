@@ -71,21 +71,19 @@ function Status(props) {
 
             <div className="row">
                 <div className="col-12">
-                    <input value={props.user&&props.user.fullName} type="text" class="form-control i_name_men" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <div></div>
+                    <div  class="form-control i_name_men" id="exampleInputEmail1" aria-describedby="emailHelp" >{props.user&&props.user.username}</div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-12">
                     {/* <input className="i_position_men" placeholder="your position" /> */}
-                    <input value={props.user&&props.user.position} type="text" class="form-control i_position_men" id="exampleInputEmail1" aria-describedby="emailHelp"  />
-
+                    <div  type="text" class="form-control i_position_men" id="exampleInputEmail1" aria-describedby="emailHelp"  >{props.user&&props.user.position}</div>
                 </div>
             </div>
-           
             <div className="row">
                <div className="col-12">
                     <div className="div_email">{props.user&&props.user.email}</div>
-                  
             </div>
 
             </div>

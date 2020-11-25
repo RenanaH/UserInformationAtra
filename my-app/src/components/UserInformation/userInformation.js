@@ -14,10 +14,16 @@ import { connect } from 'react-redux';
 import { actions } from '../../redux/actions/user.action'
 
 import { globe } from '../../assets/globe.png'
-
 function UserInformation(props) {
+
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
+
+    const [apiKeyType, setApiKeyType] = useState("password");
+
+    const [inputPhone, setInputPhone] = useState();
+    const [errorPhone, setErrorPhone] = useState(" ");
+
 
 
     const URL = 'https://restcountries.eu/rest/v2/all';//to countries
@@ -39,36 +45,64 @@ function UserInformation(props) {
 
     })
 
-    const fillCities = ((cityName) => {
+    const fillCities = ((countryName) => {
+
         // debugger;
-        const url = `http://api.geonames.org/searchJSON?username=ksuhiyp&country=${cityName}&maxRows=1000&style=SHORT`
-        fetch(url)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
+        // const url = `http://api.geonames.org/searchJSON?username=ksuhiyp&country=${cityName}&maxRows=1000&style=SHORT`
+        // fetch(url)
+        //     .then(response => {
+        //         if (response.ok) {
+        //             return response;
+        //         }
+        //         throw Error(response.status)
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         debugger;
+        //         setCities(data.geonames)
+        //         console.log("cities", cities)
+        //     })
+        //     .catch(error => console.log(error))
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("https://lobby.leader.codes/api/getCitiesByCountries/" + countryName, requestOptions)
             .then(response => response.json())
-            .then(data => {
-                debugger;
-                setCities(data.geonames)
-                console.log("cities", cities)
+            .then(result => {
+                console.log(result);
+                setCities(result.geonames.map(e => e.name))
+                console.log(cities)
             })
-            .catch(error => console.log(error))
+            .catch(error => console.log('error', error));
 
     })
 
-
+    const changeTypeInputApiKey = (e) => {
+        if (apiKeyType == "text")
+            setApiKeyType("password")
+        else
+            setApiKeyType("text")
+    }
 
 
     const handle = (event) => {
-        debugger;
+
         props.setUserByFiled1(event.target.name, event.target.value);
 
         if (event.target.name == "country") {
-            countries.forEach(e => { if (e.name == event.target.value) { fillCities(e.alpha2Code); console.log(e.alpha2Code) } })
+            countries.forEach(e => {
+                if (e.name == event.target.value) { fillCities(e.alpha2Code); }
+            })
         }
+        if (event.target.name == "phone"||event.target.name=="companyEmail") {
+            if (props.errors[event.target.name] != undefined) {
+                props.removeErr(event.target.name)
+            }
+
+        }
+
 
         event.target.placeholder = event.target.value;
         console.log("eeeeeeeevent.target.placeholder", event.target.placeholder)
@@ -118,22 +152,37 @@ function UserInformation(props) {
         // }
 
         //}
-        );
+        , [props]);
 
     const saveInformation = () => {
-        debugger;
+        let isValid = true;
+        //validate front
+        // if (inputPhone !== undefined) {
+        //    var pattern = new RegExp(/^[0-9\b]+$/);
+        //     // var pattern = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+        //     if (!pattern.test(inputPhone)) {
+        //         isValid = false;
+        //         setErrorPhone("Please enter only number.");
+        //     } else if (inputPhone.length != 10) {
+        //         isValid = false;
+        //         setErrorPhone("Please enter valid phone number.");
+        //     }
+        // }
+        // if(isValid&& inputPhone !== "undefined") {
+        setErrorPhone("")
         props.saveUserInServer1(props.user);
-        alert("your profile is updated")
-    }
-   
 
-    const onChangeHandlerLogo = (event) => {   
-        debugger;
+        // alert("your profile is updated")
+        // }
+
+    }
+
+
+    const onChangeHandlerLogo = (event) => {
         const reader1 = new FileReader();
         const file = event;
         reader1.onloadend = () => {
             props.setUserByFiled1("imgLogo", reader1.result);
-
         };
         reader1.readAsDataURL(file);/////
         ////////
@@ -232,7 +281,6 @@ function UserInformation(props) {
                                         name="companyName"
                                         onChange={(e) => handle(e)}
                                         type="text" class="form-control i_topic i_color_grey" placeholder={props.user && props.user.companyName == "" ? "company name" : props.user.companyName} aria-describedby="basic-addon2" />
-
                                 </div>
                             </div>
                         </div>
@@ -288,26 +336,19 @@ function UserInformation(props) {
                                     Company Phone
                                 </div>
                             </div>
-                            {/* <div className="row">
-                                <div className="col pr-1 col_small_left">
-                                <input
-                                        name="position"
-                                        onChange={(e) => handle(e)}
-                                        // onClick={removeInput}
-                                        //  ref={positionInput}
-                                        type="text" class="form-control form-control i_topic i_color_grey ml-1" placeholder={user1.position == "" ? "position" : user1.position} aria-label="Recipient's username" aria-describedby="basic-addon2" />
 
-                                </div>
-                            </div> */}
                             <div className="row">
                                 <div className="col pr-1 col_small_left">
                                     <input
                                         name="phone"
                                         onChange={(e) => handle(e)}
-                                        type="number" class="form-control i_topic i_color_grey"
+                                        type="tel" class="form-control i_topic i_color_grey"
                                         placeholder={props.user.phone == "" ? "phone" : props.user.phone}
                                         aria-label="Recipient's username" aria-describedby="basic-addon2" />
                                 </div>
+                                {/* placeholder={props.user && props.user.socialmedias ? props.user.socialmedias.website === "" ? "website" : props.user.socialmedias.website : null} */}
+
+                                <div className="text-danger">{props&&props.errors["phone"] ? props.errors["phone"].properties.message:null}</div>
                             </div>
                         </div>
                     </div>
@@ -325,6 +366,7 @@ function UserInformation(props) {
                                         onChange={(e) => handle(e)}
                                         type="email" class="form-control i_topic i_color_grey" placeholder={props.user.companyEmail == "" ? "company email" : props.user.companyEmail} aria-describedby="basic-addon2" />
                                 </div>
+                                <div className="text-danger">{props&&props.errors["companyEmail"] ? props.errors["companyEmail"].properties.message:null}</div>
                             </div>
                         </div>
                     </div>
@@ -392,7 +434,6 @@ function UserInformation(props) {
                                                 key={item.value}
                                                 value={item.name}
                                             >
-                                                {/* alpha2Code */}
                                                 {item.name}
                                             </option>
                                         ))}
@@ -420,7 +461,7 @@ function UserInformation(props) {
                                                 key={item.value}
                                                 value={item.name}
                                             >
-                                                {item.name}
+                                                {item}
                                             </option>
                                         ))}
                                     </select>
@@ -434,7 +475,7 @@ function UserInformation(props) {
                     <div className="col-12 pb-3 div_font pl-4">Personal Information</div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6 pl-2 pb-3">
+                    <div className="col-md-4 pl-2 pb-3">
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col pl-3 font_2">
@@ -449,7 +490,7 @@ function UserInformation(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6 pr-2 pb-3">
+                    <div className="col-md-4 pr-2 pb-3">
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col font_2 pr-0 pl-1 col_small_lable">
@@ -469,8 +510,34 @@ function UserInformation(props) {
                         </div>
                     </div>
 
+                    <div className="col-md-4 pr-2 pb-3">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col font_2 pr-0 pl-1 col_small_lable">
+                                    Api Key
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col col_small_right pl-0 input-group">
+                                    <input
+                                        name="apiKey"
+                                        // onChange={(e) => handle(e)}
+                                        type={apiKeyType}
+                                        class="form-control i_topic i_color_grey calendar" value={props.user.apiKey == "" ? "api key" : props.user.apiKey} aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                                    <span className="password__show" onClick={(e) => changeTypeInputApiKey(e)}>
+                                        <svg id="i_eye" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z" />
+                                            <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                {/* <div className="row">
+                <div>
+                    {/* <div className="row">
                     <div className="col-md-4">
                         <div className="container">
                             <div className="row">
@@ -521,7 +588,7 @@ function UserInformation(props) {
                     </div>
                 </div>
                 */}
-                {/* <div className="row">
+                    {/* <div className="row">
                     <div className="col-md-4">
                         <div className="container">
                             <div className="row">
@@ -586,7 +653,7 @@ function UserInformation(props) {
                     </div>
                 </div>
               */}
-                {/* <div className="row">
+                    {/* <div className="row">
                     <div className="col-md-4">
                         <div className="container">
                             <div className="row">
@@ -655,11 +722,11 @@ function UserInformation(props) {
                 </div>
  */}
 
-                {/* <div className="row">
+                    {/* <div className="row">
                     <div className="col-md-4 font_2">Company Address</div>
                 </div> */}
 
-                {/* <div className="row mt-1">
+                    {/* <div className="row mt-1">
                     <div className="col-md-3">
                         <div class="input-group mb-3">
                             <input
@@ -704,7 +771,7 @@ function UserInformation(props) {
 
 
                 </div> */}
-
+                </div>
                 <div className="row">
                     <div className="col-md-4 font_2 pl-4">Media</div>
                 </div>
@@ -802,7 +869,8 @@ function UserInformation(props) {
 export default connect(
     (state) => {
         return {
-            user: state.user.user
+            user: state.user.user,
+            errors: state.errors.errors
         }
     },
     (dispatch) => {
@@ -815,6 +883,9 @@ export default connect(
             },
             setUserByFiled1: function (filed, value) {
                 dispatch(actions.setUserByFiled(filed, value))
+            },
+            removeErr: function (state, action) {
+                dispatch(actions.removeError(state,action))
             }
         }
     }

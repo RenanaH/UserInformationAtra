@@ -15,6 +15,7 @@
 }
 
 .content {
+  padding-bottom: 10px;
     flex-grow: 1;
     /* flexGrow: 1, */
     /* // padding: theme.spacing(3), */
@@ -22,7 +23,7 @@
     /* margin: 30px; */
     margin-top:70px ;
     /* border-style: dashed; */
-    height: 88vh;
+    /* height: 88vh; */
     /* // margin: '30px',
     // marginTop: '100px',
     borderStyle: 'dashed',*/
@@ -53,7 +54,7 @@ margin-left: 10px;
     height: '100vh', 
     position: 'relative', */
     border-radius: 12px;
-    margin-right: 10px;
+    margin-right: 0px;
 
   }
   .content1 {
@@ -73,7 +74,8 @@ margin-left: 10px;
     borderColor: '#d3d3d361',
     height: '100vh', 
     position: 'relative', */
-    margin-right: 10px;
+    margin-right: 0px;
+
   }
 .minRow1{
     height: 30vh ;
@@ -97,8 +99,9 @@ background-color: brown;
     opacity: 1;
 }
 body{
-   background-color: #d3d3d361;
+   background-color:#E8EAEC !important;
    font: Medium 18px/24px SF Pro Display;
+   
 }
 .fast-accses {
     fill: #5f5757;

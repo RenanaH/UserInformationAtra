@@ -40,14 +40,10 @@ function convertActionToType(actionName){
 }
 export const actions=new Proxy(
     {},
-    {            
-
+    {    
         get:function(target,prop){
-        
             if(target[prop]===undefined)
             return function(args,args2){
-                debugger;
-
                 return{
                     type:convertActionToType(prop),
                     payload:args,

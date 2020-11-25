@@ -16,14 +16,12 @@ const users = {
         state.user = action.payload;
     },
     getUserFromServer(state, action) {
-        debugger;
         state.user = action.payload;
     },
     saveUserInServer(state, action) {
         state.user = action.payload;
     },
     setUserByFiled(state, action) {
-        debugger;
 
         if (action.payload in state.user.socialmedias)
             state.user.socialmedias[action.payload] = action.value;// 
@@ -36,6 +34,9 @@ const users = {
         //         state.user[action.payload]= action.value 
         //     default: return ""
         // }
+    },
+    setContacts(state,action){
+        state.user.contacts=state.user.contacts.concat(action.payload);
     }
 
 };

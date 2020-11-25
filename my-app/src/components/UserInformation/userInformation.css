@@ -188,7 +188,10 @@ opacity: 1;
 }
 .scrollbar::-webkit-scrollbar {
     display: none;
-  }
+}
+  #i_eye{
+      margin-top: 10px;
+}
 
   @media screen and (max-width: 600px) {
     .btn_save{

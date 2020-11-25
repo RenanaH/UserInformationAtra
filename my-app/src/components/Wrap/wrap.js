@@ -88,6 +88,7 @@ import queryString from 'query-string'
 import { connect } from 'react-redux';
 import {getUserFromServer} from '../../redux/actions/user.action';
 import X from '../x';
+import Contacts from '../Contacts/contacts';
 
 
 const drawerWidth = '15%';
@@ -348,7 +349,7 @@ class Wrap extends React.Component {
             </IconButton> */}
 {/* //+user.username */}
 
-            <a className="a_img" href={"/" + this.state.user.username}> <img src={logo1} alt={"logo"} width="35px" /></a>
+            <a className="a_img" href={"/" + this.props.user.username}> <img src={logo1} alt={"logo"} width="35px" /></a>
             {/* <Toolbar>
     <IconButton
       color="inherit"
@@ -500,7 +501,7 @@ class Wrap extends React.Component {
 
         <div className="container-fluid bama">
           <div className="row">
-            <div className="col-md-9">
+            <div className="col-md-10 pl-1">
 
               <main className="content">
 
@@ -527,10 +528,10 @@ class Wrap extends React.Component {
               </main>
 
             </div>
-            <div className="col-md-3 pl-1 pr-2">
+            <div className="col-md-2 pl-0">
               <div className="container ">
                 <div className="row pb-3">
-                  <div className="col-12">
+                  <div className="col-12 p-0">
                     <main className="content1">
                       {/* <button onClick={this.a}>click</button> */}
 
@@ -541,8 +542,9 @@ class Wrap extends React.Component {
 
                 </div>
                 <div className="row">
-                  <div className="col-12">
+                  <div className="col-12 p-0">
                     <main className="content2">
+                      <Contacts/>
                     </main>
                   </div>
                 </div>
