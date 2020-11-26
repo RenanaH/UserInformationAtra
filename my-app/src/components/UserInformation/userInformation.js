@@ -13,7 +13,7 @@ import $ from 'jquery';
 import { connect } from 'react-redux';
 import { actions } from '../../redux/actions/user.action'
 
-import { globe } from '../../assets/globe.png'
+import  globe  from '../../assets/globe.png'
 function UserInformation(props) {
 
     const [countries, setCountries] = useState([]);
@@ -469,7 +469,6 @@ function UserInformation(props) {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div className="row">
                     <div className="col-12 pb-3 div_font pl-4">Personal Information</div>
