@@ -37,6 +37,8 @@ export const getUser = ({ dispatch, getState }) => next => action => {
                      console.log(message.error.errors)
                dispatch(actions.addError(message.error.errors))
                 }
+                else
+                alert("your profile is updated")
                   
             })
 

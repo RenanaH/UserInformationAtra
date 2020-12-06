@@ -8,7 +8,8 @@ import createReducer from './reducerUtils';
 const initialState = {
     // name: 'tamar',
     // id: 4343
-    user: {}
+    user: {},
+    tokenFromCookies:""
 }
 
 const users = {
@@ -35,9 +36,20 @@ const users = {
         //     default: return ""
         // }
     },
-    setContacts(state,action){
-        state.user.contacts=state.user.contacts.concat(action.payload);
+    setContacts(state, action) {
+        state.user.contacts = state.user.contacts.concat(action.payload);
+    },
+    // setUserGoogleEmail(state, action) {
+    //     state.userGoogleEmail = action.payload;
+    // },
+    setGoogleContacts(state, action) {
+        state.user.googleContacts = action.payload;
+    },
+    setTokenFromCookies(state,action){
+        state.tokenFromCookies=action.payload;
     }
+
+
 
 };
 

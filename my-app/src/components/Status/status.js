@@ -83,7 +83,10 @@ function Status(props) {
             </div>
             <div className="row">
                <div className="col-12">
-                    <div className="div_email">{props.user&&props.user.email}</div>
+                    <div className="div_email">
+                        {props.user.username + "@mail.leader.codes"}
+
+                        </div>
             </div>
 
             </div>

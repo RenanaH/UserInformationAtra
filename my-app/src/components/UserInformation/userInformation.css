@@ -192,7 +192,23 @@ opacity: 1;
   #i_eye{
       margin-top: 10px;
 }
-
+.center_txt{
+    align-items: center;
+}
+.img_copy{
+    width: 20px;
+    height: 20px;
+    
+}
+.img_copy::after{
+    content: 'jhj';
+}
+.img_copy::before{
+    content: '';
+}
+.div_api{
+    align-items: center;
+}
   @media screen and (max-width: 600px) {
     .btn_save{
         width: 38px;

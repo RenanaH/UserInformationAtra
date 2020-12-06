@@ -88,8 +88,8 @@ import queryString from 'query-string'
 import { connect } from 'react-redux';
 import {getUserFromServer} from '../../redux/actions/user.action';
 import X from '../x';
-import Contacts from '../Contacts/contacts';
-
+import ContactFacebook from '../Contacts/contactFacebook';
+import GoogleContacts from '../Contacts/contactGoogle'
 
 const drawerWidth = '15%';
 const useStyles = theme => ({
@@ -544,7 +544,8 @@ class Wrap extends React.Component {
                 <div className="row">
                   <div className="col-12 p-0">
                     <main className="content2">
-                      <Contacts/>
+                      <ContactFacebook/>
+                      <GoogleContacts/>
                     </main>
                   </div>
                 </div>
